@@ -9,7 +9,8 @@
 </head>
 <body>
     <div class="wrapper">
-        <form action="">
+        <form action="/timeline" method="post">
+            @csrf
             <div class="post-box">
                 <input type="text" name="tweet" placeholder="今なにしてる？">
                 <button type="submit" class="submit-btn">ツイート</button>
@@ -17,9 +18,17 @@
         </form>
 
         <div class="tweet-wrapper">
-            <div class="tweet-box">
-
-            </div>
+            @foreach ($tweets as $tweet)
+                <div class="tweet-box">
+                    <div>{{ $tweet->tweet }}</div>
+                    <div class="destroy-btn">
+                        <form action="{{ route('destroy',[$tweet->id]) }}" method="post">
+                            @csrf
+                        <input type="submit" value="削除">
+                        </form>
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
 </body>
